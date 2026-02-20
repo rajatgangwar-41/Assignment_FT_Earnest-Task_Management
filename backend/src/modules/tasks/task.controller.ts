@@ -44,7 +44,7 @@ export async function list(req: Request, res: Response) {
 }
 
 export async function getOne(req: Request, res: Response) {
-  const task = await getTaskById(req.userId!, req.params.id);
+  const task = await getTaskById(req.userId!, req.params.id as string);
 
   if (!task) {
     return res.status(404).json({ message: "Task not found" });
@@ -56,7 +56,7 @@ export async function getOne(req: Request, res: Response) {
 export async function update(req: Request, res: Response) {
   const body = updateTaskSchema.parse(req.body);
 
-  const result = await updateTask(req.userId!, req.params.id, body);
+  const result = await updateTask(req.userId!, req.params.id as string, body);
 
   if (result.count === 0) {
     return res.status(404).json({ message: "Task not found" });
@@ -66,7 +66,7 @@ export async function update(req: Request, res: Response) {
 }
 
 export async function remove(req: Request, res: Response) {
-  const result = await deleteTask(req.userId!, req.params.id);
+  const result = await deleteTask(req.userId!, req.params.id as string);
 
   if (result.count === 0) {
     return res.status(404).json({ message: "Task not found" });
@@ -76,7 +76,7 @@ export async function remove(req: Request, res: Response) {
 }
 
 export async function toggle(req: Request, res: Response) {
-  const task = await toggleTask(req.userId!, req.params.id);
+  const task = await toggleTask(req.userId!, req.params.id as string);
 
   if (!task) {
     return res.status(404).json({ message: "Task not found" });
