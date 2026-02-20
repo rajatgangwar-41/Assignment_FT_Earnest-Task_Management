@@ -21,10 +21,13 @@ export default function LoginPage() {
       setLoading(true);
       setError("");
 
-      const res = await axios.post("http://localhost:4000/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+        {
+          email,
+          password,
+        },
+      );
 
       setTokens(res.data.accessToken, res.data.refreshToken);
       router.push("/dashboard");
